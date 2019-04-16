@@ -1,6 +1,6 @@
 package com.myproject.tinyalarmclock;
 
-import com.myproject.tinyalarmclock.config.Producer;
+import com.myproject.tinyalarmclock.config.RecordProducer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +12,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class TinyAlarmClockApplicationTests {
 
     @Autowired
-    Producer producer;
+    RecordProducer recordProducer;
 
     @Test
     public void contextLoads() {
-        producer.recordThoughts("我想回家呀！");
+        recordProducer.recordThoughts("下单成功");
     }
 
 }

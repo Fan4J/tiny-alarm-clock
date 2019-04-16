@@ -1,9 +1,8 @@
 package com.myproject.tinyalarmclock.config;
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.DirectExchange;
-import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.*;
+import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -64,5 +63,14 @@ public class RabbitBeanConfig {
         return BindingBuilder.bind(ttlQueue).to(directExchange).with(TTL_ROUTING_KEY);
     }
 
+    @Bean
+    public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactoryMultiple(ConnectionFactory connectionFactory) {
+        SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
+        factory.setConnectionFactory(connectionFactory);
+        factory.setConcurrentConsumers(3);
+        factory.setPrefetchCount(10);
+        factory.setAcknowledgeMode(AcknowledgeMode.MANUAL);
+        return factory;
+    }
 
 }
